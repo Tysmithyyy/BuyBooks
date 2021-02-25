@@ -1,0 +1,35 @@
+﻿@{
+    ViewData["Title"] = "Home";
+}
+<!--Specifies the iqueryable model we will be using on this view-->
+@model IQueryable<Library>
+<div class="text-center">
+    <h1 class="display-4">Check out our library!</h1>
+</div>
+<br />
+<table class="table table-striped border border-dark rounded">
+    <tr class="thead-dark">
+        <th>ID</th>
+        <th>Title</th>
+        <th>Author</th>
+        <th>Publisher</th>
+        <th>ISBN</th>
+        <th>Classification</th>
+        <th>Category</th>
+        <th>Price</th>
+    </tr>
+<!--Loops through each item in the model and displays them on the page using a table-->
+        @foreach (var x in Model)
+        {
+            <tr>
+                <td>@x.BookId</td>
+                <td>@x.Title</td>
+                <td>@x.AuthorFirstName @x.AuthorLastName</td>
+                <td>@x.Publisher</td>
+                <td>@x.ISBN</td>
+                <td>@x.Class</td>
+                <td>@x.Category</td>
+                <td>$@x.Price</td>
+            </tr>
+        }
+</table>
