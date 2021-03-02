@@ -19,6 +19,7 @@ namespace BuyBooks.Migrations
                     ISBN = table.Column<string>(nullable: false),
                     Class = table.Column<string>(nullable: false),
                     Category = table.Column<string>(nullable: false),
+                    PageCount = table.Column<int>(nullable: false),
                     Price = table.Column<decimal>(nullable: false)
                 },
                 constraints: table =>

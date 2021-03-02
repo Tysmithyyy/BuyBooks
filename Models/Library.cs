@@ -37,6 +37,9 @@ namespace BuyBooks.Models
         public string Category { get; set; }
 
         [Required]
+        public int PageCount { get; set; }
+
+        [Required]
         [DataType(DataType.Currency)]
         public decimal Price { get; set; }
     }
