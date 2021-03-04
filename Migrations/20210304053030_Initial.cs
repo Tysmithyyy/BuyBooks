@@ -11,7 +11,7 @@ namespace BuyBooks.Migrations
                 columns: table => new
                 {
                     BookId = table.Column<int>(nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
+                        .Annotation("Sqlite:Autoincrement", true),
                     Title = table.Column<string>(nullable: false),
                     AuthorFirstName = table.Column<string>(nullable: false),
                     AuthorLastName = table.Column<string>(nullable: false),

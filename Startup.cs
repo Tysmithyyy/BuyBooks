@@ -30,7 +30,7 @@ namespace BuyBooks
             //connects to the connection we created in the app settings.
             services.AddDbContext<BuyBooksDbContext>(options =>
                 {
-                    options.UseSqlServer(Configuration["ConnectionStrings:BuyBooksConnection"]);
+                    options.UseSqlite(Configuration["ConnectionStrings:BuyBooksConnection"]);
                 });
 
             services.AddScoped<IBuyBooksRepository, EFBuyBooksRepository>();
