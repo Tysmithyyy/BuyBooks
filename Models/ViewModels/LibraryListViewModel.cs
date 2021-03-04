@@ -9,5 +9,6 @@ namespace BuyBooks.Models.ViewModels
     {
         public IEnumerable<Library> Libraries { get; set; }
         public PagingInfo PagingInfo { get; set; }
+        public string CurrentCategory { get; set; }
     }
 }

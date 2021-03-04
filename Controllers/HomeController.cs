@@ -24,12 +24,13 @@ namespace BuyBooks.Controllers
             _repository = repository;
         }
 
-        public IActionResult Index(int page = 1)
+        public IActionResult Index(string category, int page = 1)
         {
             //Gets the Iqueryable Libraries to pass to the view
             return View(new LibraryListViewModel
             {
                 Libraries = _repository.Libraries
+                        .Where(p => category == null || p.Category == category)
                         .OrderBy(p => p.BookId)
                         .Skip((page - 1) * PageSize)
                         .Take(PageSize)
@@ -38,8 +39,11 @@ namespace BuyBooks.Controllers
                 {
                     CurrentPage = page,
                     ItemsPerPage = PageSize,
-                    TotalNumItems = _repository.Libraries.Count()
-                }
+                    //gets number of pages to display and takes into account any category filter
+                    TotalNumItems = category == null ? _repository.Libraries.Count() :
+                        _repository.Libraries.Where(x => x.Category == category).Count()
+                },
+                CurrentCategory = category
             });
         }
 

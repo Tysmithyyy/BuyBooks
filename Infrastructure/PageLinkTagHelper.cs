@@ -27,6 +27,9 @@ namespace BuyBooks.Infrastructure
         public PagingInfo PageModel { get; set; }
         public string PageAction { get; set; }
 
+        [HtmlAttributeName(DictionaryAttributePrefix = "page-url-")]
+        public Dictionary<string, object> PageUrlValues { get; set; } = new Dictionary<string, object>();
+
         public bool PageClassesEnabled { get; set; }
         public string PageClass { get; set; }
         public string PageClassNormal { get; set; }
@@ -44,7 +47,9 @@ namespace BuyBooks.Infrastructure
             {
                 //builds a tag that will be dynamically added to the html
                 TagBuilder tag = new TagBuilder("a");
-                tag.Attributes["href"] = urlHelper.Action(PageAction, new { page = i });
+
+                PageUrlValues["page"] = i;
+                tag.Attributes["href"] = urlHelper.Action(PageAction, PageUrlValues);
                 //adding a class to the tag helper to give it a styled button for pagination
                 if (PageClassesEnabled)
                 {
@@ -58,6 +63,5 @@ namespace BuyBooks.Infrastructure
 
             output.Content.AppendHtml(result.InnerHtml);
         }
-
     }
 }

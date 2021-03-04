@@ -1,0 +1,22 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model IEnumerable<string>
+
+<ul class="nav nav-pills flex-column">
+
+    @foreach (string category in Model)
+    {
+        <li class="nav-item">
+            <a class="nav-link @(category == ViewBag.SelectedCategory ? "active bg-dark text-light" : "text-dark")" asp-action="Index" asp-controller="Home"
+               asp-route-category="@category" asp-route-page="1">@category</a>
+        </li>
+    }
+
+    <li class="nav-item">
+        <a class="nav-link text-danger" asp-action="Index" asp-controller="Home"
+           asp-route-category="">Remove Filters</a>
+    </li>
+</ul>
