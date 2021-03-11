@@ -10,6 +10,7 @@ using System.Linq;
 using System.Threading.Tasks;
 using BuyBooks.Models;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Http;
 
 namespace BuyBooks
 {
@@ -34,6 +35,14 @@ namespace BuyBooks
                 });
 
             services.AddScoped<IBuyBooksRepository, EFBuyBooksRepository>();
+
+            services.AddRazorPages();
+
+            services.AddDistributedMemoryCache();
+
+            services.AddSession();
+            services.AddScoped<Cart>(sp => SessionCart.GetCart(sp));
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -52,6 +61,8 @@ namespace BuyBooks
             app.UseHttpsRedirection();
             app.UseStaticFiles();
 
+            app.UseSession();
+
             app.UseRouting();
 
             app.UseAuthorization();
@@ -60,12 +71,12 @@ namespace BuyBooks
             {
                 endpoints.MapControllerRoute(
                     "catpage",
-                    "{category}/{page:int}",
+                    "{category}/{pageNum:int}",
                     new { Controller = "Home", action = "Index" });
 
                 endpoints.MapControllerRoute(
-                    "page",
-                    "{page:int}",
+                    "pageNum",
+                    "{pageNum:int}",
                     new { Controller = "Home", action = "Index" });
 
                 endpoints.MapControllerRoute(
@@ -75,10 +86,12 @@ namespace BuyBooks
 
                 endpoints.MapControllerRoute(
                     "pagination",
-                    "Libraries/P{page}",
+                    "Libraries/P{pageNum}",
                     new { Controller  = "Home", action = "Index"});
 
                 endpoints.MapDefaultControllerRoute();
+
+                endpoints.MapRazorPages();
             });
 
             SeedData.EnsurePopulated(app);

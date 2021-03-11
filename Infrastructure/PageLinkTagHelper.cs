@@ -48,7 +48,7 @@ namespace BuyBooks.Infrastructure
                 //builds a tag that will be dynamically added to the html
                 TagBuilder tag = new TagBuilder("a");
 
-                PageUrlValues["page"] = i;
+                PageUrlValues["pageNum"] = i;
                 tag.Attributes["href"] = urlHelper.Action(PageAction, PageUrlValues);
                 //adding a class to the tag helper to give it a styled button for pagination
                 if (PageClassesEnabled)

@@ -1,0 +1,36 @@
+﻿@page
+@model BuyBooks.Pages.BuyModel
+@{
+}
+
+<h2>Here is your cart!     <a href="@Model.ReturnUrl">Continue Shopping</a></h2>
+
+<table class="table">
+    <tr class="thead-dark">
+        <th></th>
+        <th>Book</th>
+        <th>Quantity</th>
+        <th>Price</th>
+        <th>Subtotal</th>
+    </tr>
+    @foreach(var line in Model.Cart.Lines)
+        {
+<tr>
+    <td>
+        <form asp-page-handler="Remove" method="post">
+            <input type="hidden" name="BookId" value="@line.Library.BookId" />
+            <input type="hidden" name="returnUrl" value="@Model.ReturnUrl" />
+            <button type="submit" class="btn btn-sm btn-danger">Remove</button>
+        </form>
+    </td>
+    <td>@line.Library.Title</td>
+    <td>@line.Quantity</td>
+    <td class="text-right">$@line.Library.Price</td>
+    <td class="text-right">$@(line.Library.Price*line.Quantity)</td>
+</tr>
+        }
+     <tr>
+         <td class="text-right" colspan="4">Total:</td>
+         <td class="text-right">$@Model.Cart.ComputeTotal()</td>
+     </tr>
+</table>

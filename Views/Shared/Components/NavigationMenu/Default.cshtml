@@ -11,7 +11,7 @@
     {
         <li class="nav-item">
             <a class="nav-link @(category == ViewBag.SelectedCategory ? "active bg-dark text-light" : "text-dark")" asp-action="Index" asp-controller="Home"
-               asp-route-category="@category" asp-route-page="1">@category</a>
+               asp-route-category="@category" asp-route-pageNum="1">@category</a>
         </li>
     }
 
